@@ -1,19 +1,23 @@
 <template>
   <div id="app">
-      并嘻嘻
+      <router-view></router-view>
+      <TabBar />
   </div>
 </template>
 
 <script>
 
-export default {
-  name: 'App',
-  components: {
+    import TabBar from "./components/TabBar/TabBar";
 
-  }
-}
+    export default {
+        name: 'App',
+        components: {
+            TabBar
+        }
+    }
 </script>
 
-<style>
+<style scoped lang="stylus">
+
 
 </style>
