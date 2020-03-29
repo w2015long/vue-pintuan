@@ -1,25 +1,25 @@
 <template>
     <div class="bottom-tab">
-        <router-link to="/home" class="tab-item">
-            <img src="../../assets/img/icon_home.png" alt="">
-            <span>首页</span>
-        </router-link>
-        <router-link to="/recommend" class="tab-item">
-            <img src="../../assets/img/icon_intro.png" alt="">
-            <span>推荐</span>
-        </router-link>
-        <router-link to="/search" class="tab-item">
-            <img src="../../assets/img/icon_search.png" alt="">
-            <span>搜索</span>
-        </router-link>
-        <router-link to="/chat" class="tab-item">
-            <img src="../../assets/img/icon_chat.png" alt="">
-            <span>聊天</span>
-        </router-link>
-        <router-link to="me" class="tab-item">
-            <img src="../../assets/img/icon_mine.png" alt="">
-            <span>我的</span>
-        </router-link>
+        <div class="tab-item" @click="swithTabbar('/home')">
+            <img :src="$route.path.includes('/home') ? tabBarImgs[0].selected : tabBarImgs[0].nomal" alt="首页">
+            <span :class="{on:$route.path.includes('/home')}">首页</span>
+        </div>
+        <div  class="tab-item" @click="swithTabbar('/recommend')">
+            <img :src="$route.path.includes('/recommend') ? tabBarImgs[1].selected : tabBarImgs[1].nomal" alt="推荐">
+            <span :class="{on:$route.path.includes('/recommend')}">推荐</span>
+        </div>
+        <div  class="tab-item" @click="swithTabbar('/search')">
+            <img :src="$route.path.includes('/search') ? tabBarImgs[2].selected : tabBarImgs[2].nomal" alt="搜索">
+            <span :class="{on:$route.path.includes('/search')}">搜索</span>
+        </div>
+        <div  class="tab-item" @click="swithTabbar('/chat')">
+            <img :src="$route.path.includes('/chat') ? tabBarImgs[3].selected : tabBarImgs[3].nomal" alt="聊天">
+            <span :class="{on:$route.path.includes('/chat')}">聊天</span>
+        </div>
+        <div class="tab-item" @click="swithTabbar('/me')">
+            <img :src="$route.path.includes('/me') ? tabBarImgs[4].selected : tabBarImgs[4].nomal" alt="我的">
+            <span :class="{on:$route.path.includes('/me')}">我的</span>
+        </div>
     </div>
 </template>
 
@@ -27,6 +27,7 @@
     export default {
         name: "TabBar",
         data:()=>({
+            activeTabItem:0,
             tabBarImgs:[
                 {
                     nomal: require("../../assets/img/icon_home.png"),
@@ -51,7 +52,9 @@
             ]
         }),
         methods: {
-
+            swithTabbar(path){
+                this.$router.replace(path)
+            }
         }
     }
 </script>
