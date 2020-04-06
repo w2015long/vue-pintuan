@@ -24,7 +24,7 @@
                     <li
                         :class="{'finish':areaType > index}"
                         v-for="(item,index) in areaStatus"
-                        @click="handleSelect(index + 1,selectLocation[index+1],index+1)"
+                        @click="getSubLocation(index)"
                     :key="index">
                         <i></i>
                         <span>{{ selectLocation[index+1].value || item }}</span>
@@ -86,23 +86,21 @@
     export default {
         //区域批发商
         name: "me",
-        data(){
-            return {
-                modalBox:false,
-                areaStatus:['选择省份','选择城市','选择县/区','选择街道/镇'],
-                areaType:1,//show provinceData
-                provinceData:[],//省份
-                cityData:[],//市区
-                areaData:[],//县区
-                streetData:[],//街道
-                selectLocation:{
-                    1:'',//province
-                    2:'',//city
-                    3:'',//area
-                    4:'',//street
-                }
+        data:()=>({
+            modalBox:false,
+            areaStatus:['选择省份','选择城市','选择县/区','选择街道/镇'],
+            areaType:1,//show provinceData
+            provinceData:[],//省份
+            cityData:[],//市区
+            areaData:[],//县区
+            streetData:[],//街道
+            selectLocation:{
+                1:'',//province
+                2:'',//city
+                3:'',//area
+                4:'',//street
             }
-        },
+        }),
         created() {
 
         },
@@ -119,77 +117,67 @@
                 this.getAreaData(1);
                 this.areaType = 1;
             },
+
             /**
              * 处理上方select点击事件
-             * @param subMenu 1:province 2:city 3:area 4:street
-             * @returns {boolean}
-             */
-            getSubArea(subMenu){
-
-                switch (subMenu) {
+             * type 0 1 2 3
+            */
+            getSubLocation(type) {
+                switch (type+1) {
                     case 1:
-                        if (!this.selectLocation[subMenu-1]) return true
+                        if (!this.selectLocation[type]) {
+                            this.getAreaData(type+1);
+                        }
                         break
                     case 2:
-                        if (!this.selectLocation[subMenu-1]) {
+                        if (!this.selectLocation[type]) {
                             alert('请先选择省份')
-                            return false
+                            return
                         }
                         break
                     case 3:
-                        if (!this.selectLocation[subMenu-1]) {
+                        if (!this.selectLocation[type]) {
                             alert('请先选择市区')
-                            return false
+                            return
                         }
                         break
                     case 4:
-                        if (!this.selectLocation[subMenu-1]) {
+                        if (!this.selectLocation[type]) {
                             alert('请先选择县')
-                            return false
+                            return
                         }
                         break
                     default:
                         break
-
                 }
 
-                return  true
+                if (type) {
+                    const id = this.selectLocation[type].id
+                    this.getAreaData(type+1,id);
+                }
+                //显示下列地区数据
+                this.areaType = type + 1;
             },
             /**
-             * 处理地区选择点击事件
+             * 处理选中地区点击事件
              * @param type
              * @param item 具体地区
-             * @param subMenu
              */
-            handleSelect(type,item,subMenu){
-                //type 1  2  3 4
-                if (subMenu){//点击上方
-                    const  hasSel = this.getSubArea(subMenu);
-                    if (!hasSel) return;
-                    if (!this.selectLocation[subMenu-1]) {//获取第一个 即省份
-                        this.getAreaData(type);
-                    } else {
-                        const id = this.selectLocation[subMenu-1].id
-                        this.getAreaData(type,id);
-                    }
+            handleSelect(type,item){
+
+                if (type !== null) {
+                    //获取后台地区数据
+                    this.getAreaData(type,item.id);
+                    //保存已选地区
+                    this.selectLocation[type-1] = item;
                     //显示下列地区数据
                     this.areaType = type;
-                } else {//下方区域
-
-                    if (type !== null) {
-                        //获取后台地区数据
-                        this.getAreaData(type,item.id);
-                        //保存已选地区
-                        this.selectLocation[type-1] = item;
-                        //显示下列地区数据
-                        this.areaType = type;
-                    } else {
-                        //保存已选地区
-                        this.selectLocation[4] = item;
-                        this.areaType = 4;
-                    }
-
+                } else {
+                    //保存已选地区
+                    this.selectLocation[4] = item;
+                    this.areaType = 4;
                 }
+
 
             },
             /**
