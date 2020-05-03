@@ -1,59 +1,81 @@
 <template>
-    <div class="main">
-        <div class="nav-container">
-            <div class="nav-wrapper">
-                <div class="nav-item" v-for="item in 20" :key="item">{{ item }} </div>
-            </div>
-            <div class="nav-progress">
-                <div class="progress-item"></div>
-            </div>
-        </div>
+  <div id="wrapper">
+    <div id="scroller">
+      <ul>
+        <li>
+          <div v-for="(item, index) in homenav.item1" :key="index">
+            <img :src="item.iconurl" alt="">
+            <span v-text="item.icontitle"></span>
+          </div>
+        </li>
+        <li>
+          <div v-for="(item, index) in homenav.item2" :key="index">
+            <img :src="item.iconurl" alt="">
+            <span v-text="item.icontitle"></span>
+          </div>
+        </li>
+      </ul>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "HotNav"
+  // 1. 引入状态
+  import {mapState} from 'vuex'
+  // 2. 引入iscroll
+  import IScroll from 'iscroll'
+
+  export default {
+    name: "HotNav",
+    computed: {
+      ...mapState(['homenav'])
+    },
+    mounted() {
+      // 初始化iscroll
+      new IScroll('#wrapper', {scrollX: true});
+      this.$el.addEventListener('touchmove', this.handleTouchMove);
+    },
+    methods: {
+      handleTouchMove(e) {
+        // 阻止原生的时间
+        e.preventDefault();
+        console.log('move()....');
+      }
     }
+  }
 </script>
 
-<style scoped lang="stylus">
-    .main
-        position relative
-        width 100%
-        height 180px
-        .nav-container
-            margin-top 1.5rem
-            width 100%
-            height 180px
-            overflow-x scroll
-            &::-webkit-scrollbar
-                display:none
-            .nav-wrapper
-                display flex
-                flex-wrap wrap
-                width 750px
-                height 180px
-                .nav-item
-                    width 90px
-                    height 90px
-                    background-color blueviolet
-                    margin-right 10px
-                    text-align center
-            .nav-progress
-                position absolute
-                left 50%
-                transform translateX(-50%)
-                bottom 5px
-                width 150px
-                height 4px
-                background-color aquamarine
-                .progress-item
-                    width 15px
-                    height 3px
-                    background-color red
-
-
-
-
+<style scoped lang="stylus" ref="stylesheet/stylus">
+   #wrapper
+     position relative
+     width 100%
+     height 14rem
+     background-color #fff
+     padding-top 1rem
+     #scroller
+       width 64rem
+       height 100%
+       ul
+         list-style none
+         padding 0
+         margin 0
+         width 100%
+         height 100%
+         li
+          width 100%
+          height 6rem
+          div
+            width 8rem
+            height 6rem
+            float left
+            display flex
+            flex-direction column
+            justify-content center
+            align-items center
+            font-size 1.2rem
+            img
+              width 3rem
+            span
+              text-align center
+              margin-top 0.5rem
 </style>

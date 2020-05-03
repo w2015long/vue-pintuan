@@ -83,6 +83,7 @@
     //http://nfxts.520shq.com/localQuickPurchase/brandSquare/region?type=3&pid=110386
     //街道
     //http://nfxts.520shq.com/localQuickPurchase/brandSquare/region?type=4&pid=110425
+    import ajax from "../../api/ajax";
     export default {
         //区域批发商
         name: "me",
@@ -187,11 +188,8 @@
              * @returns {Promise<void>}
              */
             async getAreaData(type=1,pid=0) {
-                console.log(type,pid);
 
-                const ret = await this.ajax({
-                   url:`http://nfxts.520shq.com/localQuickPurchase/brandSquare/region?type=${type}&pid=${pid}`,
-                });
+                const ret = await ajax(`http://nfxts.520shq.com/localQuickPurchase/brandSquare/region`,{type,pid});
                 switch (type) {
                     case 1:
                         this.provinceData = ret.data;
