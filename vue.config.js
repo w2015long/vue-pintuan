@@ -1,12 +1,11 @@
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);//production环境
-console.log(IS_PROD);
+
 module.exports = {
 
     devServer: {
         host: 'localhost',
         port: 8080,
         open: true, //配置自动启动浏览器
-        hotOnly: true, // 热更新
         proxy: {
             '/line_proxy': {  //使用"/api"来代替线上服务器地址
                 target: 'http://mobile.yangkeduo.com/proxy/api/api/barrow/query', //源地址

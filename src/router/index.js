@@ -7,7 +7,8 @@ const Home  = () => import('./../pages/Home/Home')
 const Recommend = () =>  import('./../pages/Recommend/Recommend')
 const Cart = () =>  import( './../pages/Cart/Cart')
 const Search = () =>  import( './../pages/Search/Search')
-const Me = () =>  import( './../pages/Me/Me')
+const Me = () =>  import( '../pages/Me/Me')
+const SelectArea = () =>  import( '../pages/Me/SelectArea')
 const Login = () =>  import( './../pages/Login/Login')
 
 // 引入二级的路由版块
@@ -55,6 +56,7 @@ export default new VueRouter({
     {path: '/search', component: Search, meta: {showBottomTabBar: true}},
     {path: '/me', component: Me, meta: {showBottomTabBar: true}},
     {path: '/login', component: Login},
+    {path: '/selectarea', component: SelectArea},
     {path: '/', redirect: '/home'}
   ]
 });
