@@ -1,7 +1,7 @@
 import ajax from './ajax'
 
 // 1. 定义基础路径
-const BASE_URL = '/local_api';
+const BASE_URL = '/local_serve';
 
 // 2. 请求的方法
 // 2.1 请求首页的轮播图
@@ -12,7 +12,7 @@ export const getHomeNav = () => ajax(BASE_URL + '/api/homenav');
 export const getHomeShopList = () => ajax(BASE_URL + '/api/homeshoplist');
 
 // 3. 推荐数据请求
-const PDD_BASE_URL = '/api';
+const PDD_BASE_URL = '/line_proxy';
 // 3.1 请求推荐列表的数据
 export const getRecShopList = (params) => ajax(PDD_BASE_URL, params);
 
