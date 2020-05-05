@@ -55,7 +55,7 @@
       //解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
       let self = this;
       this.mescroll = new MeScroll(self.scrollId, {
-        down: {use: false},
+        // down: {use: false},
         up: {
           use:self.upUse,
           auto: self.upAuto,
