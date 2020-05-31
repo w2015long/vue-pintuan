@@ -12,9 +12,9 @@
             <img :src="$route.path.includes('/search') ? tabBarImgs[2].selected : tabBarImgs[2].nomal" alt="搜索">
             <span :class="{on:$route.path.includes('/search')}">搜索</span>
         </div>
-        <div  class="tab-item" @click="swithTabbar('/chat')">
+        <div  class="tab-item" @click="swithTabbar('/cart')">
             <img :src="$route.path.includes('/chat') ? tabBarImgs[3].selected : tabBarImgs[3].nomal" alt="聊天">
-            <span :class="{on:$route.path.includes('/chat')}">聊天</span>
+            <span :class="{on:$route.path.includes('/chat')}">购物车</span>
         </div>
         <div class="tab-item" @click="swithTabbar('/me')">
             <img :src="$route.path.includes('/me') ? tabBarImgs[4].selected : tabBarImgs[4].nomal" alt="我的">
