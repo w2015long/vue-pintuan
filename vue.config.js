@@ -1,7 +1,6 @@
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);//production环境
 
 module.exports = {
-
     devServer: {
         host: 'localhost',
         port: 8080,
